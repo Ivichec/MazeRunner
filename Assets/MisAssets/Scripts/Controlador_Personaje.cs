@@ -79,7 +79,11 @@ public class Personaje : MonoBehaviour
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.LeftShift)) EstablecerDirMovimientoCorriendo();
-        else velocidad = 2f; rb.MovePosition(rb.position + dirMovimiento * velocidad * Time.fixedDeltaTime);
+        else velocidad = 2f;
+
+        //rb.MovePosition(rb.position + dirMovimiento * velocidad * Time.fixedDeltaTime);
+        rb.velocity = dirMovimiento * velocidad + Vector3.up * rb.velocity.y;
+
     }
     private void OnTriggerEnter(Collider other)
     {
