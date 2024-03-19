@@ -21,6 +21,7 @@ public class MusicManager : MonoBehaviour
     {
         instancia = this;
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.1f;
     }
 
     public void ReproducirMusica(int _num)

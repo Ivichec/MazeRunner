@@ -18,6 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     public GameObject panel_hall;
     public GameObject panel_confirmarSalida;
+    public GameObject panel_Partida;
     #endregion
 
     #region 2) FUNCIONES PREDET UNITY
@@ -30,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
     {
         panel_hall.SetActive(true);
         panel_confirmarSalida.SetActive(false);
+        panel_Partida.SetActive(false);
     }
     #endregion
 
@@ -40,8 +42,15 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("Se hace click en JUGAR");
 
         SoundManager.instancia.Reproducir_Click();
-        GameManager.instancia.InformacionTransicion(1, EstadosJuego.Jugando);
-        GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
+        panel_Partida.SetActive(true);
+    }
+    public void Boton_Ajustes()
+    {
+        Debug.Log("Se hace click en AJUSTES");
+
+        SoundManager.instancia.Reproducir_Click();
+       
+
     }
 
     public void Boton_Salir()
@@ -50,11 +59,27 @@ public class MainMenuManager : MonoBehaviour
 
         SoundManager.instancia.Reproducir_Click();
         panel_hall.SetActive(false);
+        panel_Partida.SetActive(false);
         panel_confirmarSalida.SetActive(true);
     }
     #endregion
-
-    #region METODOS DE LA PANTALLA "2_ConfirmarSalida"
+    #region METODOS DE LA PANTALLA "2.OpcionesDePartidas"
+    public void Boton_Iniciar()
+    {
+        Debug.Log("Se hace click en Iniciar");
+        SoundManager.instancia.Reproducir_Click();
+        GameManager.instancia.InformacionTransicion(1, EstadosJuego.Jugando);
+        GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
+    }
+    public void Boton_Nueva()
+    {
+        Debug.Log("Se hace click en Nueva");
+        SoundManager.instancia.Reproducir_Click();
+        GameManager.instancia.InformacionTransicion(1, EstadosJuego.Jugando);
+        GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
+    }
+    #endregion
+    #region METODOS DE LA PANTALLA "3.ConfirmarSalida"
     public void Boton_SalirConfirmar()
     {
         // Sale de la version exportada
@@ -66,6 +91,7 @@ public class MainMenuManager : MonoBehaviour
         SoundManager.instancia.Reproducir_Cancel();
         panel_hall.SetActive(true);
         panel_confirmarSalida.SetActive(false);
+        panel_Partida.SetActive(false);
     }
     #endregion
     #endregion

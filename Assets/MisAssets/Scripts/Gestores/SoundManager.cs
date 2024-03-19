@@ -35,12 +35,14 @@ public class SoundManager : MonoBehaviour
     /// del Gestor de Sonido o AudioSource
     /// </summary>
     public void Reproducir_Click()
-    {
+    {   
+        audioSource.volume = 0.5f;
         audioSource.PlayOneShot(click);
     }
 
     public void Reproducir_Cancel()
     {
+        audioSource.volume = 0.1f;
         audioSource.PlayOneShot(cancel);
     }
     #endregion

@@ -19,8 +19,7 @@ public class HudManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Actualizar_Monedas();
-        Actualizar_Monedas();
+
     }
 
     // Update is called once per frame
@@ -39,8 +38,4 @@ public class HudManager : MonoBehaviour
 
     }
 
-    public void Actualizar_Monedas()
-    {
-        monedas.text = PlayerDataManager.instancia.datosPlayer.monedas.ToString();
-    }
 }

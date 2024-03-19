@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
     // --------------------------------------------------------------------------
     #region 2) FUNCIONES PREDETERMINADAS UNITY
     void Awake()
-    {
+    {   
+       // audio
         Debug.Log("Se ejecuta el Awake()");
         #region USO DEL PATRON SINGLETON
         // Sirve para asegurarnos de que en el momento en el que nuestro GameManager

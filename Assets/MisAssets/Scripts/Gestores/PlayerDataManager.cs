@@ -23,8 +23,7 @@ public class PlayerDataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U)) SumarMonedas(10);
-        if (Input.GetKeyDown (KeyCode.I)) GastarMonedas(10);
+
     }
 
     #region 3) METODOS ORIGINALES
@@ -64,31 +63,6 @@ public class PlayerDataManager : MonoBehaviour
         HudManager.instancia.Actualizar_BarraVida();
     }
     #endregion
-
-    #region 3.2) METODOS PARA LAS MONEDAS
-    public void SumarMonedas(int _nuevasMonedas)
-    {
-        datosPlayer.monedas += _nuevasMonedas;
-
-        HudManager.instancia.Actualizar_Monedas();
-    }
-
-    public void GastarMonedas(int _precio)
-    {
-        if (datosPlayer.monedas - _precio >= 0)
-        {
-            Debug.Log("Me lo puedo permitir. COMPRAR COMPRAR");
-            datosPlayer.monedas -= _precio;
-        }
-        else
-        {
-            Debug.Log("No tienes dinero sufiente. Se cancela operacion");
-        }
-
-        HudManager.instancia.Actualizar_Monedas();
-    }
-
-    #endregion
     #endregion
 }
 
@@ -97,10 +71,6 @@ public class DatosPlayer
 {
     public float vidaActual;
     public float vidaMax;
-
-    public int monedas;
-    public bool[] monedasRecogidasNivel1;
-
 
     // Player
     public Vector3 posicion;
