@@ -138,11 +138,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 864432619609607867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e636bc4a5f89148853294a4b4c2c26, type: 3}
+  m_Script: {fileID: 11500000, guid: fa45c37ba78e3884f847e683da63f7fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  click: {fileID: 8300000, guid: d31e27616653d1d4cb950b0170d55958, type: 3}
-  cancel: {fileID: 8300000, guid: cf66650942a94a84abe872ddde28345f, type: 3}
+  click: {fileID: 0}
+  cancel: {fileID: 0}
 --- !u!1 &2058316238182647768
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,11 +281,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2058316238182647768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d20134d3263e24484bfbf382ed5daf, type: 3}
+  m_Script: {fileID: 11500000, guid: dac38be1b658dad4cb0caa2f4a6c55b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musica_MenuInicio: {fileID: 8300000, guid: 07f391589664f4e85904fa28802b4aa8, type: 3}
-  musica_Gameplay: {fileID: 8300000, guid: 26364aaf1f64b40c1a047b0bacfbd10e, type: 3}
+  musica_MenuInicio: {fileID: 0}
+  musica_Gameplay: {fileID: 0}
 --- !u!1 &3112306322187930800
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 8931222138110567000}
   - component: {fileID: 7076457072053436869}
   - component: {fileID: 831790822000526291}
-  - component: {fileID: 4555296383506862631}
+  - component: {fileID: 6434646449175611370}
   m_Layer: 0
   m_Name: 3. TransitionManager (Canvas)
   m_TagString: Untagged
@@ -461,7 +461,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4555296383506862631
+--- !u!114 &6434646449175611370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4485210562705115348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 682401baefd02b0449772302008dd6bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 06d026db8f28a5f4ea911f086d4d76d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5102372628000317529
@@ -515,10 +515,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5102372628000317529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f18c94db86b8abc419043662d0bb3cb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c2e3c28c4a8695542ab613c2127e19c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  estadoActual: 4
+  estadoActual: 0
+  menuPausa: {fileID: 0}
   escenaCargadaTrasTransicion: 0
   estadoJuegoTrasTransicion: 0
 --- !u!1 &5552737609347705579
@@ -771,7 +772,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7649428087319273846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 977cb10943fe3af4b87885b877ac8893, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fc9a5eb174a2f84e82deb26045c2aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8897656882585618985
@@ -815,12 +816,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8897656882585618985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb14db12b218e8c469f7148b67c64ee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 734c3d12f137b9e4bb508e23aa445c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   datosPlayer:
     vidaActual: 0
     vidaMax: 0
-    monedas: 0
     posicion: {x: 0, y: 0, z: 0}
     rotacion: {x: 0, y: 0, z: 0, w: 0}
+    rotCamH: 0
+    rotCamV: 0

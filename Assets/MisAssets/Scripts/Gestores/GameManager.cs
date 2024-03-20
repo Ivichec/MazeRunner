@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GreatArcStudios;
 using UnityEngine;
 using UnityEngine.SceneManagement; // libreria donde esta definida la clase SceneManager.
 
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     #region 1) DEFINICION DE VARIABLES
     public static GameManager instancia;
     public EstadosJuego estadoActual;
-
+    public GameObject menuPausa;
     [Header ("VARIABLES USADAS EN TRANSICIONES")]
     // se almacena el valor de la escena que se carga al terminar la primera mitad del fundido a negro
     public int escenaCargadaTrasTransicion;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
         #endregion
     }
@@ -81,6 +82,9 @@ public class GameManager : MonoBehaviour
 
                 Time.timeScale = 1f;
                 MusicManager.instancia.ReproducirMusica(0);
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
             case EstadosJuego.Cargando:
 
@@ -101,25 +105,25 @@ public class GameManager : MonoBehaviour
                 break;
             // ----------------------------------------------------------------------
             case EstadosJuego.Jugando:
-
+                menuPausa.SetActive(false);
                 Time.timeScale = 1f; // Se escala la velocidad de la simul a 1f (valo predet.)
 
                 Cursor.lockState = CursorLockMode.Locked; // El cursor se bloquea
                 Cursor.visible = false; // El cursor se oculta
 
                 MusicManager.instancia.ReproducirMusica(1);
-                PauseManager.instancia.OcultarTodosPaneles();
+                //PauseManager.instancia.OcultarTodosPaneles();
                 break;
             // ----------------------------------------------------------------------
             case EstadosJuego.JuegoPausado:
-
                 Time.timeScale = 0f; // Se escala la velocidad de la simul a 0f
+                menuPausa.SetActive(true);
 
                 Cursor.lockState = CursorLockMode.None; // El cursor se desbloquea
                 Cursor.visible = true; // El cursor se muestra
 
                 MusicManager.instancia.PausarMusica();
-                PauseManager.instancia.MostrarPanel_Hall();
+                //PauseManager.instancia.MostrarPanel_Hall();
                 break;
             // ----------------------------------------------------------------------
             case EstadosJuego.FinJuego:
@@ -151,13 +155,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void EstablecerEstadoPausado()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        int _escena = SceneManager.GetActiveScene().buildIndex;
+        if (_escena == 1 && Input.GetKeyDown(KeyCode.Escape))
         {
             // "si estoy jugando..."
             if (estadoActual == EstadosJuego.Jugando)
             {
                 // ...pausamos el juego"
                 EstablecerEstado(EstadosJuego.JuegoPausado);
+                
             }
 
             // ".. en caso de que no este jugando, si esta el juego pausado..."
@@ -165,6 +171,7 @@ public class GameManager : MonoBehaviour
             {
                 /// ... volvemos a estar en estado jugando"
                 EstablecerEstado(EstadosJuego.Jugando);
+                
             }
         }
     }
@@ -193,8 +200,16 @@ public class GameManager : MonoBehaviour
 
     public void Cargando_Jugar()
     {
-        SceneManager.LoadScene(1);
-        EstablecerEstado(EstadosJuego.Jugando);
+        int _escena = SceneManager.GetActiveScene().buildIndex;
+        if (_escena != 1)
+        {
+            SceneManager.LoadScene(1);
+            EstablecerEstado(EstadosJuego.Jugando);
+        }
+        else
+        {
+            EstablecerEstado(EstadosJuego.Jugando);
+        }
     }
 
     public void Cargando_VolverMenuInicio()

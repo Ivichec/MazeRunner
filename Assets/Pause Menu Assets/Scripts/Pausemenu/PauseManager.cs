@@ -250,6 +250,7 @@ namespace GreatArcStudios
         private Boolean lastDOFBool;
         public static Terrain readTerrain;
         public static Terrain readSimpleTerrain;
+        public static PauseManager instancia;
 
         private SaveSettings saveSettings = new SaveSettings();
         /*
@@ -277,6 +278,10 @@ namespace GreatArcStudios
         /// <summary>
         /// The start method; you will need to place all of your inital value getting/setting here. 
         /// </summary>
+        public void Awake()
+        {
+            instancia = this;
+        }
         public void Start()
         {
            
@@ -295,7 +300,7 @@ namespace GreatArcStudios
             lastMusicMult = audioMusicSlider.value;
             lastAudioMult = audioEffectsSlider.value;
             //Set the first selected item
-            uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
+            //uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
             //Get the presets from the quality settings 
             presets = QualitySettings.names;
             presetLabel.text = presets[QualitySettings.GetQualityLevel()].ToString();
@@ -324,11 +329,11 @@ namespace GreatArcStudios
             //Find terrain
             terrain = Terrain.activeTerrain;
             //Disable other panels
-            mainPanel.SetActive(false);
+            mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
             //Enable mask
-            mask.SetActive(false);
+           // mask.SetActive(false);
             //set last texture limit
             lastTexLimit = QualitySettings.globalTextureMipmapLimit;
             //set last shadow cascade 
@@ -360,28 +365,33 @@ namespace GreatArcStudios
         /// </summary>
         public void Restart()
         {
-            Application.LoadLevel(Application.loadedLevel);
-            uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
+            GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
+            GameManager.instancia.InformacionTransicion(1, EstadosJuego.Jugando);
+            GameManager.instancia.menuPausa.SetActive(false);
         }
         /// <summary>
         /// Method to resume the game, so disable the pause menu and re-enable all other ui elements
         /// </summary>
         public void Resume()
         {
-            Time.timeScale = timeScale;
+            Debug.Log("Presiona en Resume");
+            //Time.timeScale = timeScale;
 
-            mainPanel.SetActive(false);
+            mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
-            TitleTexts.SetActive(false);
-            mask.SetActive(false);
+            //TitleTexts.SetActive(false);
+
+            GameManager.instancia.EstablecerEstado(EstadosJuego.Jugando);
+            GameManager.instancia.menuPausa.SetActive(false);
+            //mask.SetActive(false);
             for (int i = 0; i < otherUIElements.Length; i++)
             {
                 otherUIElements[i].gameObject.SetActive(true);
             }
             SoundManager.instancia.Reproducir_Click();
-            GameManager.instancia.InformacionTransicion(1, EstadosJuego.Jugando);
-            GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
+            
+            //GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
             /* if (blurBool == false)
              {
                  blurEffect.enabled = false;
@@ -425,8 +435,11 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
-            Application.LoadLevel(mainMenu);
-            uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+            //Application.LoadLevel(mainMenu);
+
+            SoundManager.instancia.Reproducir_Click();
+            GameManager.instancia.InformacionTransicion(0, EstadosJuego.MenuInicio);
+            GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
         }
 
         // Update is called once per frame
@@ -435,6 +448,7 @@ namespace GreatArcStudios
         /// </summary>
         public void Update()
         {
+            
             readUseSimpleTerrain = useSimpleTerrain;
             useSimpleTerrain = readUseSimpleTerrain;
             //colorCrossfade();
@@ -448,19 +462,19 @@ namespace GreatArcStudios
             }
             else if (mainPanel.active == true)
             {
-                pauseMenu.text = "Pause Menu";
+               // pauseMenu.text = "Pause Menu";
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
             {
 
-                uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
+               // uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
                 TitleTexts.SetActive(true);
                 mask.SetActive(true);
-                Time.timeScale = 0;
+               //Time.timeScale = 0f;
                 for (int i = 0; i < otherUIElements.Length; i++)
                 {
                     otherUIElements[i].gameObject.SetActive(false);
@@ -471,12 +485,12 @@ namespace GreatArcStudios
                  }  */
             }
             else if(Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true) {
-                Time.timeScale = timeScale;
-                mainPanel.SetActive(false);
+                //Time.timeScale = timeScale;
+                mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
-                TitleTexts.SetActive(false);
-                mask.SetActive(false);
+                //TitleTexts.SetActive(false);
+                //mask.SetActive(false);
                 for (int i = 0; i < otherUIElements.Length; i++)
                 {
                     otherUIElements[i].gameObject.SetActive(true);
@@ -978,19 +992,6 @@ namespace GreatArcStudios
             {
                 terrain.treeMaximumFullLODCount = (int)qual;
             }
-
-        }
-        /// <summary>
-        /// Change the height map max LOD using 
-        /// <c>
-        /// terrain.heightmapMaximumLOD = (int)qual;
-        /// </c>
-        /// </summary>
-        /// <param name="qual"></param>
-        public void updateTerrainLod(float qual)
-        {
-            try { if (useSimpleTerrain == true) { simpleTerrain.heightmapMaximumLOD = (int)qual; } else { terrain.heightmapMaximumLOD = (int)qual; } }
-            catch { Debug.Log("Terrain not assigned"); return; }
 
         }
         /// <summary>

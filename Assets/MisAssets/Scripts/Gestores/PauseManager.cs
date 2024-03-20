@@ -50,9 +50,9 @@ public class PauseManager : MonoBehaviour
 
     public void OcultarTodosPaneles()
     {
-        menu_Hall.SetActive(false);
-        menu_ConfirmarReiniciar.SetActive(false);
-        menu_ConfirmarSalir.SetActive(false);
+        //menu_Hall.SetActive(false);
+        //menu_ConfirmarReiniciar.SetActive(false);
+        //menu_ConfirmarSalir.SetActive(false);
     }
 
     public void BotonHall_Reanudar()
