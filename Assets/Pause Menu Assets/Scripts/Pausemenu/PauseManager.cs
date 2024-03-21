@@ -435,8 +435,8 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
-            //Application.LoadLevel(mainMenu);
-
+            //Application.LoadLevel(mainMenu)
+            GameManager.instancia.menuPausa.SetActive(false);
             SoundManager.instancia.Reproducir_Click();
             GameManager.instancia.InformacionTransicion(0, EstadosJuego.MenuInicio);
             GameManager.instancia.EstablecerEstado(EstadosJuego.Cargando);
