@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemigo
+  - Mapa
   layers:
   - Default
   - TransparentFX
@@ -12,14 +13,14 @@ TagManager:
   - 
   - Water
   - UI
-  - Mapa
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Mapa1
+  - Mapa2
+  - Mapa3
+  - Mapa4
+  - Mapa5
+  - Mapa6
+  - Mapa7
+  - Mapa8
   - 
   - 
   - 
