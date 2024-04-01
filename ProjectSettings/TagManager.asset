@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemigo
   - Mapa
+  - CuadradoSalto
   layers:
   - Default
   - TransparentFX

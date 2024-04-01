@@ -30,10 +30,8 @@ public class LucesMiniMapa : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Entra");
         if (other.CompareTag("Mapa"))
         {
-            Debug.Log("Entra1");
             int mapaIndex = other.transform.GetSiblingIndex();
             mapaluces.GetChild(mapaIndex).GetChild(0).gameObject.SetActive(true);
         }

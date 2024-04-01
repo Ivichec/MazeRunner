@@ -66,7 +66,6 @@ public class Controlador_Personaje : MonoBehaviour
         {
             Ray ray = new Ray(transform.position,new Vector3(0,-1,0));
             RaycastHit hit;
-
             bool resultado = Physics.Raycast(ray, out hit, 0.5f);
 
             if (resultado)
