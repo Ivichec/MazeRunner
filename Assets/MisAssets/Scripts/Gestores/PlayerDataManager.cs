@@ -71,7 +71,7 @@ public class DatosPlayer
 {
     public float vidaActual;
     public float vidaMax;
-
+    public int llaves;
     // Player
     public Vector3 posicion;
     public Quaternion rotacion;

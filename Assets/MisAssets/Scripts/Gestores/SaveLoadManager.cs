@@ -40,6 +40,7 @@ void Awake (){
         // Actualiza datos del player
         PlayerDataManager.instancia.datosPlayer.posicion = Controlador_Personaje.instancia.transform.position;
         PlayerDataManager.instancia.datosPlayer.rotacion = Controlador_Personaje.instancia.transform.rotation;
+        PlayerDataManager.instancia.datosPlayer.llaves = KeysInteraccion.instancia.contadorLlaves;
 
         // Actualiza datos de la camara del Player
         Vector2 _valorCam = Controlador_Personaje.instancia.AccederValoresCamaraVirtualActiva();
