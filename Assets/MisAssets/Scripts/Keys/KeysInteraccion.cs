@@ -10,13 +10,15 @@ using UnityEngine;
 public class KeysInteraccion : MonoBehaviour
 {
     #region Variables
-    public GameObject objeto;
     public int contadorLlaves;
     public static KeysInteraccion instancia;
     public TextMeshProUGUI contador;
+    public Transform llaveMapa;
+    public Transform luzLLave;
+    public Transform particulasLlave;
     #endregion
 
-    
+
     #region Funciones de Unity
     public void Awake()
     {
@@ -38,6 +40,9 @@ public class KeysInteraccion : MonoBehaviour
         this.gameObject.SetActive(false);
         contadorLlaves--;
         contador.text = contadorLlaves.ToString();
+        llaveMapa.gameObject.SetActive(false);
+        luzLLave.gameObject.SetActive(false);
+        particulasLlave.gameObject.SetActive(false);
     }
     #endregion
 
