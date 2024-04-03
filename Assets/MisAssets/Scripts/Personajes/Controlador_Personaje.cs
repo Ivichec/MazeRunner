@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
-using static Controlador_Enemigo;
 using static Controlador_Personaje;
 
 /// <summary>
@@ -91,14 +90,15 @@ public class Controlador_Personaje : MonoBehaviour
 
         if (other.CompareTag("Enemigo"))
         {
+            Controlador_Enemigo _script = other.GetComponent<Controlador_Enemigo>();
+           
             if (other == boxCollider)
             {
-                Controlador_Enemigo.instancia.EstablecerEstado(Estados.PlayerAtacado);
+                _script.EstablecerEstado(Estados.PlayerAtacado);
             }
             else
             {   
-                Controlador_Enemigo.instancia.EstablecerEstado(Estados.PlayerDetectado);
-                Controlador_Enemigo.instancia.contadorTiempo = 0f;
+                _script.EstablecerEstado(Estados.PlayerDetectado);
             }
         }
     }

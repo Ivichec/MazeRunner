@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static Controlador_Enemigo;
 
 /// <summary>
 /// 
@@ -14,7 +13,6 @@ public class Controlador_Enemigo : MonoBehaviour
     public NavMeshAgent agente;
     public Estados estado;
     public Transform objetivo;
-    public static Controlador_Enemigo instancia;
 
     Vector3 posInicial;
     Quaternion rotInicial;
@@ -24,13 +22,16 @@ public class Controlador_Enemigo : MonoBehaviour
 
     private SphereCollider sphereCollider;
     private BoxCollider boxCollider;
+
+    Lacerador scriptAnim;
     #endregion
 
     #region Funciones de Unity
     void Awake()
     {
-        instancia = this;
-	    agente = GetComponent<NavMeshAgent>();
+        scriptAnim = transform.GetChild(0).GetComponent<Lacerador>();
+
+        agente = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         objetivo = GameObject.FindWithTag("Player").transform;
         posInicial = transform.position;
@@ -48,6 +49,14 @@ public class Controlador_Enemigo : MonoBehaviour
     void Update()
     {
         if(estado == Estados.PlayerDetectado) agente.SetDestination(objetivo.position);
+        if (estado == Estados.Volviendo)
+        {
+            //terminar en casa, para que coja que esta en la posicion con unos metros de diferencia.
+            if ((agente.transform.position - posInicial).magnitude < 2f)
+            {
+                EstablecerEstado(Estados.Quieto);
+            }
+        }
     }
     #endregion
     /// <summary>
@@ -78,7 +87,7 @@ public class Controlador_Enemigo : MonoBehaviour
                 agente.isStopped = false;
                 agente.stoppingDistance = 1.25f;
                 contadorTiempo = 0f;
-                Lacerador.instancia.Andar();
+                scriptAnim.Andar();
                 break;
             // --------------------------------------------
             case Estados.PlayerPerdido:
@@ -88,25 +97,27 @@ public class Controlador_Enemigo : MonoBehaviour
                 break;
             // --------------------------------------------
             case Estados.PlayerAtacado:
-                Lacerador.instancia.Atacar();
+                scriptAnim.Atacar();
                 break;
             case Estados.Volviendo:
                 agente.stoppingDistance = 0f;
                 contadorTiempo = 0f;
                 agente.SetDestination(posInicial);
-                Lacerador.instancia.Andar();
+                scriptAnim.Andar();
                 break;
            
                 // --------------------------------------------
         }
     }
     #endregion
-    public enum Estados
-    {
-        Quieto,
-        PlayerDetectado,
-        PlayerPerdido,
-        PlayerAtacado,
-        Volviendo
-    }
+
+}
+
+public enum Estados
+{
+    Quieto,
+    PlayerDetectado,
+    PlayerPerdido,
+    PlayerAtacado,
+    Volviendo
 }

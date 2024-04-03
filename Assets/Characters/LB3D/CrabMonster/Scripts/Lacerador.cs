@@ -6,13 +6,11 @@ using UnityEngine;
 public class Lacerador : MonoBehaviour {
 
     public Animator animator;
-	public static Lacerador instancia;
     // Use this for initialization
 
     void Awake()
     {
         animator = GetComponent<Animator>();
-        instancia = this;
     }
     void Start () 
 	{
