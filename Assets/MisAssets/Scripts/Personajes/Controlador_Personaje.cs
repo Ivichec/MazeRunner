@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static Controlador_Personaje;
 
 /// <summary>
@@ -27,12 +29,17 @@ public class Controlador_Personaje : MonoBehaviour
     public Transform enemigo;
     public static Controlador_Personaje instancia;
     public int contadorLlaves;
+    public int contadorVidas;
+
+
+    public Image[] imagenes;
     #endregion
 
     #region Funciones de Unity
     void Awake()
     {   
         contadorLlaves = 3;
+        contadorVidas = 5;
         cam = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
         sphereCollider = enemigo.GetComponent<SphereCollider>();
@@ -43,7 +50,6 @@ public class Controlador_Personaje : MonoBehaviour
     void Start()
     {
         EstablecerMovimiento(movimiento);
-
     }
 
     // Update is called once per frame
@@ -93,8 +99,7 @@ public class Controlador_Personaje : MonoBehaviour
         if (other.CompareTag("Enemigo"))
         {
             Controlador_Enemigo _script = other.GetComponent<Controlador_Enemigo>();
-           
-            if (other == boxCollider)
+            if (other == other.GetComponent<BoxCollider>())
             {
                 Debug.Log("Entra en el box collider");
                 _script.EstablecerEstado(Estados.PlayerAtacado);
@@ -244,6 +249,20 @@ public class Controlador_Personaje : MonoBehaviour
     public int contadorActual()
     {
         return contadorLlaves;
+    }
+    public void actualizarContadorVidas()
+    {
+        contadorVidas--;
+        Debug.Log(contadorVidas);
+    }
+    public int contadorActualVidas()
+    {
+        return contadorVidas;
+    }
+    public void borrarVidas(int e)
+    {
+        Debug.Log("Vidamenos"+ e);
+        imagenes[e].gameObject.SetActive(false);
     }
     #endregion
     public enum Movimiento

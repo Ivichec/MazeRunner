@@ -24,6 +24,7 @@ public class Controlador_Enemigo : MonoBehaviour
     private BoxCollider boxCollider;
 
     Lacerador scriptAnim;
+    public int contadorVidas;
     #endregion
 
     #region Funciones de Unity
@@ -100,6 +101,7 @@ public class Controlador_Enemigo : MonoBehaviour
                 agente.isStopped = false;
                 agente.stoppingDistance = 1.25f;
                 contadorTiempo = 0f;
+                metodoVidas();
                 scriptAnim.Atacar();
                 break;
             case Estados.Volviendo:
@@ -110,6 +112,27 @@ public class Controlador_Enemigo : MonoBehaviour
                 break;
            
                 // --------------------------------------------
+        }
+    }
+    void metodoVidas()
+    {
+        Controlador_Personaje _script = objetivo.GetComponent<Controlador_Personaje>();
+        contadorVidas = _script.contadorActualVidas();
+        contadorVidas--;
+        _script.actualizarContadorVidas();
+
+        if (contadorVidas >= 0)
+        {
+            _script.borrarVidas(contadorVidas);
+            if(contadorVidas == 0)
+            {
+                Debug.Log("HAS PERDIDO");
+                objetivo.transform.position = new Vector3(0,100,0);
+            }
+        }
+        else
+        {
+            Debug.Log("HAS PERDIDO");
         }
     }
     #endregion

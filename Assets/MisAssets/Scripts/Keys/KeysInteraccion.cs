@@ -42,8 +42,8 @@ public class KeysInteraccion : MonoBehaviour
     {
         Controlador_Personaje _script = personaje.GetComponent<Controlador_Personaje>();
         contadorLlaves = _script.contadorActual();
-        this.gameObject.SetActive(false);
         contadorLlaves--;
+        this.gameObject.SetActive(false);
         _script.actualizarContador();
         contador.text = contadorLlaves.ToString();
         llaveMapa.gameObject.SetActive(false);
