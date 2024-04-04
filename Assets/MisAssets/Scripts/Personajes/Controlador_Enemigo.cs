@@ -80,7 +80,7 @@ public class Controlador_Enemigo : MonoBehaviour
                 agente.isStopped = true;
                 agente.stoppingDistance = 1.25f;
                 transform.rotation = rotInicial;
-                anim.SetBool("corriendo", false);
+                scriptAnim.Quieto();
                 break;
             // --------------------------------------------
             case Estados.PlayerDetectado:
@@ -93,10 +93,13 @@ public class Controlador_Enemigo : MonoBehaviour
             case Estados.PlayerPerdido:
                 agente.stoppingDistance = 0f;
                 contadorTiempo = 0f;
-                anim.SetBool("corriendo", false);
+                scriptAnim.Andar();
                 break;
             // --------------------------------------------
             case Estados.PlayerAtacado:
+                agente.isStopped = false;
+                agente.stoppingDistance = 1.25f;
+                contadorTiempo = 0f;
                 scriptAnim.Atacar();
                 break;
             case Estados.Volviendo:

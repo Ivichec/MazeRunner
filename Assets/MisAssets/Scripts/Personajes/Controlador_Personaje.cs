@@ -26,11 +26,13 @@ public class Controlador_Personaje : MonoBehaviour
     private BoxCollider boxCollider;
     public Transform enemigo;
     public static Controlador_Personaje instancia;
+    public int contadorLlaves;
     #endregion
 
     #region Funciones de Unity
     void Awake()
-    {
+    {   
+        contadorLlaves = 3;
         cam = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
         sphereCollider = enemigo.GetComponent<SphereCollider>();
@@ -94,6 +96,7 @@ public class Controlador_Personaje : MonoBehaviour
            
             if (other == boxCollider)
             {
+                Debug.Log("Entra en el box collider");
                 _script.EstablecerEstado(Estados.PlayerAtacado);
             }
             else
@@ -232,6 +235,15 @@ public class Controlador_Personaje : MonoBehaviour
 
         vcActiva.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value = PlayerDataManager.instancia.datosPlayer.rotCamH;
         vcActiva.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.Value = PlayerDataManager.instancia.datosPlayer.rotCamV;
+    }
+    public void actualizarContador()
+    {
+        contadorLlaves--;
+        Debug.Log(contadorLlaves);
+    }
+    public int contadorActual()
+    {
+        return contadorLlaves;
     }
     #endregion
     public enum Movimiento

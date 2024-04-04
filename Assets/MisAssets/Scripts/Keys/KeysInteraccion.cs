@@ -16,6 +16,9 @@ public class KeysInteraccion : MonoBehaviour
     public Transform llaveMapa;
     public Transform luzLLave;
     public Transform particulasLlave;
+
+    public Transform puerta;
+    public Transform personaje;
     #endregion
 
 
@@ -27,7 +30,7 @@ public class KeysInteraccion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            contadorLlaves = 3;
+
     }
 
     // Update is called once per frame
@@ -37,12 +40,24 @@ public class KeysInteraccion : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Controlador_Personaje _script = personaje.GetComponent<Controlador_Personaje>();
+        contadorLlaves = _script.contadorActual();
         this.gameObject.SetActive(false);
         contadorLlaves--;
+        _script.actualizarContador();
         contador.text = contadorLlaves.ToString();
         llaveMapa.gameObject.SetActive(false);
         luzLLave.gameObject.SetActive(false);
         particulasLlave.gameObject.SetActive(false);
+
+        Debug.Log(LayerMask.LayerToName(this.gameObject.layer));
+        if (LayerMask.LayerToName(this.gameObject.layer) == "llaveAnimacion")
+        {
+            activadorAnimacionPuertaLadoPortal _script1 = puerta.GetComponent<activadorAnimacionPuertaLadoPortal>();
+            Debug.Log("ENtraaaaaaa");
+            _script1.abrirPuerta();
+        }
+
     }
     #endregion
 
