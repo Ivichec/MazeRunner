@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 using static Controlador_Personaje;
 
@@ -20,6 +22,7 @@ public class Controlador_Personaje : MonoBehaviour
     Vector3 dirMovimiento;
 
     public CinemachineVirtualCamera cv_apunta;
+    public CinemachineVirtualCamera cv_normal;
     Transform cam;
     Rigidbody rb;
     public float velocidad;
@@ -30,7 +33,9 @@ public class Controlador_Personaje : MonoBehaviour
     public static Controlador_Personaje instancia;
     public int contadorLlaves;
     public int contadorVidas;
-
+    public float timer;
+    public TextMeshProUGUI TiempoTexto;
+    public TextMeshProUGUI TiempoTexto1;
 
     public Image[] imagenes;
     #endregion
@@ -50,6 +55,7 @@ public class Controlador_Personaje : MonoBehaviour
     void Start()
     {
         EstablecerMovimiento(movimiento);
+        timer = 0;
     }
 
     // Update is called once per frame
@@ -60,6 +66,8 @@ public class Controlador_Personaje : MonoBehaviour
         ActualizarEstadoMovimiento();
         Refrescar_Animator();
         Rotacion();
+        timer += Time.deltaTime;
+        
         if (Input.GetMouseButton(1)) cv_apunta.m_Priority = 2;
         else cv_apunta.m_Priority = 0;
         if (ejesVirtuales.magnitude != 0f)
@@ -244,7 +252,19 @@ public class Controlador_Personaje : MonoBehaviour
     public void actualizarContador()
     {
         contadorLlaves--;
+        if( contadorLlaves == 0)
+        {
+            this.transform.position = new Vector3(0, 100, 0);
+            int[] contadorTiempo = contadorTiempoJuego();
+            TiempoTexto.text = "Has durado vivo: " + contadorTiempo[0] + " horas, " + contadorTiempo[1] + " minutos, " + contadorTiempo[2] + " segundos.";
+            TiempoTexto1.text = "Felicidades te has pasado el juego con: " + contadorLlaves + " llaves restantes y con " + contadorVidas + " vidas restantes.";
+            cambiarFarClip();
+        }
         Debug.Log(contadorLlaves);
+    }
+    public void cambiarFarClip()
+    {
+        cv_normal.m_Lens.FarClipPlane = 300f;
     }
     public int contadorActual()
     {
@@ -263,6 +283,16 @@ public class Controlador_Personaje : MonoBehaviour
     {
         Debug.Log("Vidamenos"+ e);
         imagenes[e].gameObject.SetActive(false);
+    }
+    public int[] contadorTiempoJuego()
+    {
+        int horas = (int)(timer / 3600);
+        int minutos = (int)((timer % 3600) / 60);
+        int segundosRestantes = (int)(timer % 60);
+
+        int[] tiempo = { horas, minutos, segundosRestantes };
+
+        return tiempo;
     }
     #endregion
     public enum Movimiento

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +14,8 @@ public class Controlador_Enemigo : MonoBehaviour
     public NavMeshAgent agente;
     public Estados estado;
     public Transform objetivo;
+    public TextMeshProUGUI TiempoTexto;
+    public TextMeshProUGUI TiempoTexto1;
 
     Vector3 posInicial;
     Quaternion rotInicial;
@@ -53,7 +56,7 @@ public class Controlador_Enemigo : MonoBehaviour
         if (estado == Estados.Volviendo)
         {
             //terminar en casa, para que coja que esta en la posicion con unos metros de diferencia.
-            if ((agente.transform.position - posInicial).magnitude < 2f)
+            if ((agente.transform.position - posInicial).magnitude < 4f)
             {
                 EstablecerEstado(Estados.Quieto);
             }
@@ -126,13 +129,20 @@ public class Controlador_Enemigo : MonoBehaviour
             _script.borrarVidas(contadorVidas);
             if(contadorVidas == 0)
             {
-                Debug.Log("HAS PERDIDO");
                 objetivo.transform.position = new Vector3(0,100,0);
+                int[] contadorTiempo = _script.contadorTiempoJuego();
+                TiempoTexto.text = "Has durado vivo: " + contadorTiempo[0] + " horas, "+ contadorTiempo[1] + " minutos, " + contadorTiempo[2] + " segundos.";
+                TiempoTexto1.text = "Lo siento has perdido con: " + _script.contadorActual() + " llaves restantes y con " + contadorVidas + " vidas restantes.";
+                _script.cambiarFarClip();
             }
         }
         else
         {
-            Debug.Log("HAS PERDIDO");
+            objetivo.transform.position = new Vector3(0, 100, 0);
+            int[] contadorTiempo = _script.contadorTiempoJuego();
+            TiempoTexto.text = "Has durado vivo: " + contadorTiempo[0] + " horas, " + contadorTiempo[1] + " minutos, " + contadorTiempo[2] + " segundos.";
+            TiempoTexto1.text = "Felicidades te has pasado el juego con: " + _script.contadorActual() + " llaves y con " + contadorVidas + " vidas restantes.";
+            _script.cambiarFarClip();
         }
     }
     #endregion
