@@ -25,7 +25,7 @@ public class CamasElasticas : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
 
-                float _fuerzaSalto = Mathf.Sqrt(2f * -1.5f * Physics.gravity.y);
+                float _fuerzaSalto = Mathf.Sqrt(1f * -1.5f * Physics.gravity.y);
                 rb.AddForce(Vector3.up * _fuerzaSalto, ForceMode.VelocityChange);
             }
         }
