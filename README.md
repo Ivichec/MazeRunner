@@ -1,5 +1,4 @@
 
-+++markdown
 ![alt text](https://github.com/Ivichec/MazeRunner/blob/main/img/Portada.png?raw=true)
 
 # Proyecto de Unity: Videojuego tipo Maze Runner
